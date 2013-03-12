@@ -20,8 +20,8 @@
         "symfony/framework-bundle": ">=2.1,<2.2-dev"
     },
     "autoload": {
-        "psr-0": { "RC\\RCPHPCRSeoBundle": "" }
+        "psr-0": { "RC\\PHPCRSeoBundle": "" }
     },
     "minimum-stability": "dev",
-    "target-dir": "RC/RCPHPCRSeoBundle"
+    "target-dir": "RC/PHPCRSeoBundle"
 }
