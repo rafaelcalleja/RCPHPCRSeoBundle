@@ -1,0 +1,13 @@
+0:
+  id: inicio
+  url: /inicio
+  title: Inicio
+  description: Inicio
+  keywords: Inicio
+  
+1:
+  id: home
+  url: /home
+  title: home
+  description: home
+  keywords: home

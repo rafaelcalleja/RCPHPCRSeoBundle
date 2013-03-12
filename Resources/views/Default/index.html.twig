@@ -1,1 +1,9 @@
-Hello {{ name }}!
+<div xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" typeof="sioc:Post" about="{{ block.getId }}" class="hero-unit">
+	<div class="grid_4">
+		<div class="titular1">
+			<h1 property="sioc:title">{{ block.getTitle|striptags }}</h1>
+			<h2 property="sioc:keywords">{{ block.getKeywords|striptags }}</h2>
+			<div property="sioc:description">{{ block.getDescription|striptags }}</div>
+		</div>		
+	</div>
+</div>

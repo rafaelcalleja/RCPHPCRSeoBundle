@@ -21,8 +21,10 @@ class RCPHPCRSeoExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        
+        $container->setParameter('rcphpcr_seo.seopath', $config['seopath']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader->load('phpcr-seo.xml');
     }
 }

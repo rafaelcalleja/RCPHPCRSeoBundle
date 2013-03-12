@@ -1,0 +1,13 @@
+<type
+        xmlns:sioc="http://rdfs.org/sioc/ns#"
+        xmlns:dcterms="http://purl.org/dc/terms/"
+        xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+        typeof="sioc:Post"
+        >
+    <attribute key="class" value="background_banner"/>
+    <children>
+        <property property="sioc:title" identifier="title" tag-name="h1"/>
+        <property property="sioc:keywords" identifier="keywords" tag-name="h2"/>
+        <property property="sioc:description" identifier="description" tag-name="div" />
+    </children>
+</type>
