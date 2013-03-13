@@ -27,7 +27,6 @@
 		</service>
 		
         <service id="rc.phpcr.seo.service" class="%rc.phpcr.seo.service.class%">
-            <tag name="knp_menu.provider" />
             <argument type="service" id="service_container"/>
             <argument>%symfony_cmf_menu.document_manager_name%</argument>
         </service>
