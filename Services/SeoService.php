@@ -41,8 +41,11 @@ class SeoService {
 			
 		}
 		
+		//$this->dm->getPhpcrSession()->getRootNode()->addNode("$basename/$seoid");
+		
 		$seoitem = $this->dm->find(null, "$basename/$seoid");
 		$seoitem = ($seoitem instanceof SeoNode ) ? $seoitem : new SeoNode();
+		
 		
 		$seoitem->setParentDocument($parent);
 		$seoitem->setParent($parent);
