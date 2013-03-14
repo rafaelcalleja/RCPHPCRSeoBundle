@@ -3,6 +3,8 @@ namespace RC\PHPCRSeoBundle\EventListener;
 
 use RC\PHPCRRouteEventsBundle\Events\RouteDataEvent;
 use RC\PHPCRRouteEventsBundle\Events\RouteMoveEventsData;
+use RC\PHPCRRouteEventsBundle\Events\RouteFlushDataEvent;
+use Doctrine\ODM\PHPCR\Event\LifecycleEventArgs;
 
 class RouteListener {
 	protected $routebase, $seobase, $seoservice;
@@ -54,10 +56,18 @@ class RouteListener {
  		
 	}
 	
-	public function onRouteRemoved(RouteDataEvent $event){
-		$basename = $this->getParentId($event);
-		$name = $this->getName($event);
-		$this->seoservice->remove("$basename/$name");
+	public function onRouteRemoved(RouteFlushDataEvent $event){
+		$documents = $event->getRemoved();
+		foreach($documents as $d){
+			$newEvent = new RouteDataEvent(new LifecycleEventArgs($d, $event->getDocumentManager()));
+			$basename = $this->getParentId($newEvent);
+			$name = $this->getName($newEvent);
+			$this->seoservice->remove("$basename/$name");
+				
+		}
+// 		$basename = $this->getParentId($event);
+// 		$name = $this->getName($event);
+// 		$this->seoservice->remove("$basename/$name");
 	}
 	
 	public function onRoutePreEdited(RouteDataEvent $event){
