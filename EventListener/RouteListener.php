@@ -54,6 +54,12 @@ class RouteListener {
  		
 	}
 	
+	public function onRouteRemoved(RouteDataEvent $event){
+		$basename = $this->getParentId($event);
+		$name = $this->getName($event);
+		$this->seoservice->remove("$basename/$name");
+	}
+	
 	public function onRoutePreEdited(RouteDataEvent $event){
 		
 	}

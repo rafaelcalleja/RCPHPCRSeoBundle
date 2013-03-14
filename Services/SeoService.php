@@ -72,6 +72,14 @@ class SeoService {
 		$this->dm->flush($block);
 	}
 	
+	public function remove($source){
+		$block = $this->dm->find(null, $source);
+		if($block instanceof SeoNode){
+			$this->dm->remove($block);
+			$this->dm->flush();
+		}
+	}
+	
 	
 	private function fixUriException(){
 		$metadata = $this->dm->getClassMetadata("RC\PHPCRSeoBundle\Document\SeoNode");
