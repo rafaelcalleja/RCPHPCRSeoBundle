@@ -4,6 +4,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use RC\PHPCRSeoBundle\Document\SeoNode;
 
 use Doctrine\ODM\PHPCR\DocumentManager;
+use Doctrine\Common\EventManager;
 use PHPCR\Util\NodeHelper;
 
 class SeoService {
@@ -20,7 +21,8 @@ class SeoService {
 
 	public function __construct(ContainerInterface $container, $objectManagerName) {
 		$this->container = $container;
-        $this->dm = $this->container->get('doctrine_phpcr')->getManager($objectManagerName);
+        $dm = $this->container->get('doctrine_phpcr')->getManager($objectManagerName);
+        $this->dm = $dm->create($dm->getPhpcrSession(),  $dm->getConfiguration(), new EventManager());
 	}
 	
 	public function createSeo($basename, $seoid, $uri, $title, $keywords = false, $description = false){
@@ -41,7 +43,6 @@ class SeoService {
 			
 		}
 		
-		//$this->dm->getPhpcrSession()->getRootNode()->addNode("$basename/$seoid");
 		
 		$seoitem = $this->dm->find(null, "$basename/$seoid");
 		$seoitem = ($seoitem instanceof SeoNode ) ? $seoitem : new SeoNode();
@@ -60,7 +61,7 @@ class SeoService {
 		if($description)$seoitem->setDescription($description);
 		
 		$this->dm->persist($seoitem);
-		
+		$this->dm->flush($seoitem);
 		return $seoitem;
 		
 	}
