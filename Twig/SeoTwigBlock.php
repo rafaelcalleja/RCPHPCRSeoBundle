@@ -44,13 +44,16 @@ class SeoTwigBlock extends \Twig_Extension
     
    
     protected function getCurrent($url){
-    	$this->current = $this->dm->find(null, $this->seopath.$url );
-    	return $this->current;
+    	try{
+	    	return ($this->current) ? $this->current : $this->current = $this->dm->find(null, $this->seopath.$url );
+    	}catch(\Exception $e){
+    		return '';
+    	}
     }
     
     public function getTitle($url){
     	try{
-    		return strip_tags($this->getCurrent($url)->getTitle());
+    		return ($this->getCurrent($url)) ? strip_tags($this->getCurrent($url)->getTitle()): '';
     	}catch(\Exception $e){
     		return '';
     	}
@@ -58,7 +61,7 @@ class SeoTwigBlock extends \Twig_Extension
     
     public function getKeywords($url){
     	try{
-    		return strip_tags($this->getCurrent($url)->getKeywords());
+    		return ($this->getCurrent($url)) ? strip_tags($this->getCurrent($url)->getKeywords()) : '';
     	}catch(\Exception $e){
     		return '';
     	}
@@ -66,7 +69,7 @@ class SeoTwigBlock extends \Twig_Extension
     
     public function getDescription($url){
     	try{
-    		return strip_tags($this->getCurrent($url)->getDescription());
+    		return ($this->getCurrent($url)) ?  strip_tags($this->getCurrent($url)->getDescription()): '';
     	}catch(\Exception $e){
     		return '';
     	}
@@ -74,7 +77,7 @@ class SeoTwigBlock extends \Twig_Extension
     
     public function render($url = false){
     	try{
-    		return $this->render->renderBlock($this->getCurrent($url));
+    		return ($this->getCurrent($url)) ? $this->render->renderBlock($this->getCurrent($url)): '';
     	}catch(\Exception $e){
     		return '';
     	}
