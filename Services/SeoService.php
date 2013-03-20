@@ -3,6 +3,7 @@ namespace RC\PHPCRSeoBundle\Services;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use RC\PHPCRSeoBundle\Document\SeoNode;
 
+use Doctrine\ODM\PHPCR\Translation\LocaleChooser\LocaleChooser;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Doctrine\Common\EventManager;
 use PHPCR\Util\NodeHelper;
@@ -19,10 +20,11 @@ class SeoService {
 	 */
 	protected $dm;
 
-	public function __construct(ContainerInterface $container, $objectManagerName) {
+	public function __construct(ContainerInterface $container, $objectManagerName, LocaleChooser $localeChooser) {
 		$this->container = $container;
         $dm = $this->container->get('doctrine_phpcr')->getManager($objectManagerName);
-        $this->dm = $dm->create($dm->getPhpcrSession(),  $dm->getConfiguration(), new EventManager());
+        $this->dm = $dm->create($dm->getPhpcrSession(),  $dm->getConfiguration(), $dm->getEventManager());
+        $this->dm->setLocaleChooserStrategy($localeChooser);
 	}
 	
 	public function createSeo($basename, $seoid, $uri, $title, $keywords = false, $description = false){
@@ -76,7 +78,7 @@ class SeoService {
 		$block = $this->dm->find(null, $source);
 		if($block instanceof SeoNode){
 			$this->dm->remove($block);
-			$this->dm->flush();
+			$this->dm->flush($block);
 		}
 	}
 	

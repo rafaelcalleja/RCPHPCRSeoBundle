@@ -30,6 +30,7 @@
         <service id="rc.phpcr.seo.service" class="%rc.phpcr.seo.service.class%">
             <argument type="service" id="service_container"/>
             <argument>%symfony_cmf_menu.document_manager_name%</argument>
+            <argument type="service" id="doctrine_phpcr.odm.locale_chooser" />
         </service>
         
         <service id="rc.phpcr.seo.twig.extension" class="%rc.phpcr.seo.twig.extension.class%">
