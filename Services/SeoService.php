@@ -78,7 +78,7 @@ class SeoService {
 		$block = $this->dm->find(null, $source);
 		if($block instanceof SeoNode){
 			$this->dm->remove($block);
-			$this->dm->flush($block);
+			$this->dm->flush();
 		}
 	}
 	

@@ -376,7 +376,7 @@ class SeoNode extends BaseBlock
 
     public function __toString()
     {
-        return $this->getLabel() ? : '(no label set)';
+        return $this->getTitle() ? : '(no label set)';
     }
     
     public function getType()
