@@ -11,28 +11,27 @@ class RouteListener {
 	protected $preedited = false;
 	protected $pre_event;
 	
-	public function __construct($seoservice, $routebase, $seobase){
+	public function __construct($seoservice, $seobase){
 		$this->seoservice = $seoservice;
 		$this->seobase = $seobase;
-		$this->routebase = $routebase;	
 	}
 	
 	
 	
 	protected function newSource($event){
-		return str_replace( $this->routebase, $this->seobase, $event->getSource());
+		return str_replace( $event->getDocument()->getPrefix(), $this->seobase, $event->getSource());
 	}
 	
 	protected function newDest($event){
-		return str_replace( $this->routebase, $this->seobase, $event->getDest());
+		return str_replace( $event->getDocument()->getPrefix(), $this->seobase, $event->getDest());
 	}
 	
 	protected function getId(RouteDataEvent $event){
-		return str_replace( $this->routebase, $this->seobase, $event->getId());
+		return str_replace( $event->getDocument()->getPrefix(), $this->seobase, $event->getId());
 	}
 	
 	protected function getName(RouteDataEvent $event){
-		if( $event->getId() === $this->routebase ) return basename($this->seobase);
+		if( $event->getId() === $event->getDocument()->getPrefix() ) return basename($this->seobase);
 		return basename($event->getId());
 	}
 	
@@ -41,11 +40,7 @@ class RouteListener {
 	}
 	
 	public function onRouteAdded(RouteDataEvent $event){
-		//TODO Auto detect routebase ¿PROVIDER?
 		$basename = $this->getParentId($event);
-		//FIX
-		if( strpos($basename, $this->seobase) === FALSE )return false;
-		
 		$name = $this->getName($event);
 		$label = $event->getLabel();
 		$uri = $event->getPath();

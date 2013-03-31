@@ -23,7 +23,6 @@
 		 	<tag name="kernel.event_listener" event="rc.route.post.remove" method="onRouteRemoved" />
 		 	
 		 	<argument type="service" id="rc.phpcr.seo.service" />
-		 	<argument>%symfony_cmf_routing_extra.routing_repositoryroot%</argument>
 		 	<argument>%rcphpcr_seo.seopath%</argument>
 		</service>
 		
