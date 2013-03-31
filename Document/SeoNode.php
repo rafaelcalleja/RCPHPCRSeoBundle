@@ -15,12 +15,6 @@ use Sonata\BlockBundle\Model\BlockInterface;
  */
 class SeoNode extends BaseBlock
 {
-    /**
-     * Id of this seo node
-     *
-     * @PHPCRODM\Id
-     */
-    protected $id;
 
     /**
      * Parent node
@@ -28,13 +22,6 @@ class SeoNode extends BaseBlock
      * @PHPCRODM\ParentDocument
      */
     protected $parent;
-
-    /**
-     * Node name
-     *
-     * @PHPCRODM\Nodename
-     */
-    protected $name;
 
     /** @PHPCRODM\String */
     protected $keywords = '';
@@ -69,31 +56,6 @@ class SeoNode extends BaseBlock
         $this->name = $name;
     }
 
-    /**
-     * Return ID (PHPCR path) of this seo node
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets ID (PHPCR path) of this seo node
-     *
-     * The recommended way is to use setParent and setName rather than setId.
-     *
-     * @param $id string
-     *
-     * @return SeoNode - this instance
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Set the parent of this seo node
@@ -118,29 +80,6 @@ class SeoNode extends BaseBlock
     {
         return $this->parent;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the name of this node (used in ID)
-     *
-     * @param string $name
-     *
-     * @return SeoNode - this instance
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
 
     /**
      * Return the title assigned to this seo node
