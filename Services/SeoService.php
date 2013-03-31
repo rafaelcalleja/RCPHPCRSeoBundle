@@ -30,30 +30,19 @@ class SeoService {
 	public function createSeo($basename, $seoid, $uri, $title, $keywords = false, $description = false){
 		
 		$parent = $this->dm->find(null, $basename);
-		
-		if(!$parent instanceof \Sonata\BlockBundle\Model\BlockInterface && $parent){
-			$class = $this->dm->getClassMetadata("RC\PHPCRSeoBundle\Document\SeoNode");
-			$document = $class->newInstance();
-			$document->setParentDocument($parent);
-			$document->setName($seoid);
-			$this->dm->persist($document);
-			return true;			
-		}
+		$seoitem = $this->dm->find(null, "$basename/$seoid");
 		
 		if (!$parent) {
 			NodeHelper::createPath($this->dm->getPhpcrSession(), $basename);
 			$parent = $this->dm->find(null, $basename);
 		}
 		
-
-		
-		$seoitem = $this->dm->find(null, "$basename/$seoid");
 		$seoitem = ($seoitem instanceof SeoNode ) ? $seoitem : new SeoNode();
 		
 		
 		$seoitem->setParentDocument($parent);
 		$seoitem->setName($seoid);
-//		$this->dm->persist($seoitem);
+		$this->dm->persist($seoitem);
 		
 		$this->fixUriException();
 		$seoitem->setUri($uri);
@@ -64,6 +53,7 @@ class SeoService {
 		
 		$this->dm->persist($seoitem);
 		$this->dm->flush($seoitem);
+		
 		return $seoitem;
 		
 	}
