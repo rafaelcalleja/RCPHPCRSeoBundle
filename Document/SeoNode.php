@@ -16,12 +16,6 @@ use Sonata\BlockBundle\Model\BlockInterface;
 class SeoNode extends BaseBlock
 {
 
-    /**
-     * Parent node
-     *
-     * @PHPCRODM\ParentDocument
-     */
-    protected $parent;
 
     /** @PHPCRODM\String */
     protected $keywords = '';
@@ -57,29 +51,6 @@ class SeoNode extends BaseBlock
     }
 
 
-    /**
-     * Set the parent of this seo node
-     *
-     * @param $parent SeoNode - Parent node
-     *
-     * @return SeoNode - this instance
-     */
-    public function setParent(BlockInterface $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Returns the parent of this seo node
-     *
-     * @return object
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
 
     /**
      * Return the title assigned to this seo node
@@ -117,8 +88,8 @@ class SeoNode extends BaseBlock
     
     
     protected function getParentValue($field){
-    	if(!empty($this->keywords)) return $this->keywords; 
     	$field = 'get'.ucfirst($field);
+    	if(!empty($this->{$field})) return $this->{$field}; 
     	$parent = $this->getParentDocument();
     	if( $parent instanceof SeoNode ){
     		return $parent->{$field}();
@@ -307,7 +278,7 @@ class SeoNode extends BaseBlock
      */
     public function addChild(SeoNode $child)
     {
-        $child->setParent($this);
+        $child->setParentDocument($this);
         $this->children[] = $child;
 
         return $child;

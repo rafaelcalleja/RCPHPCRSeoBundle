@@ -31,7 +31,7 @@ class SeoService {
 		
 		$parent = $this->dm->find(null, $basename);
 		
-		if(!$parent instanceof \Sonata\BlockBundle\Model\BlockInterface){
+		if(!$parent instanceof \Sonata\BlockBundle\Model\BlockInterface && $parent){
 			$class = $this->dm->getClassMetadata("RC\PHPCRSeoBundle\Document\SeoNode");
 			$document = $class->newInstance();
 			$document->setParentDocument($parent);
@@ -39,21 +39,21 @@ class SeoService {
 			$this->dm->persist($document);
 			return true;			
 		}
+		
 		if (!$parent) {
 			NodeHelper::createPath($this->dm->getPhpcrSession(), $basename);
 			$parent = $this->dm->find(null, $basename);
-			
 		}
 		
+
 		
 		$seoitem = $this->dm->find(null, "$basename/$seoid");
 		$seoitem = ($seoitem instanceof SeoNode ) ? $seoitem : new SeoNode();
 		
 		
 		$seoitem->setParentDocument($parent);
-		$seoitem->setParent($parent);
 		$seoitem->setName($seoid);
-		$this->dm->persist($seoitem);
+//		$this->dm->persist($seoitem);
 		
 		$this->fixUriException();
 		$seoitem->setUri($uri);

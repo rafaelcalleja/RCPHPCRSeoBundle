@@ -41,8 +41,11 @@ class RouteListener {
 	}
 	
 	public function onRouteAdded(RouteDataEvent $event){
-		
+		//TODO Auto detect routebase ¿PROVIDER?
 		$basename = $this->getParentId($event);
+		//FIX
+		if( strpos($basename, $this->seobase) === FALSE )return false;
+		
 		$name = $this->getName($event);
 		$label = $event->getLabel();
 		$uri = $event->getPath();
