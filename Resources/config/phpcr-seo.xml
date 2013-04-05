@@ -30,6 +30,7 @@
             <argument type="service" id="service_container"/>
             <argument>%symfony_cmf_menu.document_manager_name%</argument>
             <argument type="service" id="doctrine_phpcr.odm.locale_chooser" />
+            <argument type="service" id="logger" on-invalid="ignore" />
         </service>
         
         <service id="rc.phpcr.seo.twig.extension" class="%rc.phpcr.seo.twig.extension.class%">
