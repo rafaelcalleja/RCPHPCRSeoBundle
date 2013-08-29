@@ -39,6 +39,8 @@ class SeoTwigBlock extends \Twig_Extension
         	'seo_meta_keywords'=>  new \Twig_Function_Method($this, 'getKeywords'),
         	'seo_meta_description'=>  new \Twig_Function_Method($this, 'getDescription'),
         	'seo_meta_title'=>  new \Twig_Function_Method($this, 'getTitle'),
+            'seo_meta_block_id'=>  new \Twig_Function_Method($this, 'getId'),
+
         );
     }
     
@@ -49,6 +51,10 @@ class SeoTwigBlock extends \Twig_Extension
     	}catch(\Exception $e){
     		return '';
     	}
+    }
+
+    public function getId($url){
+        return $this->seopath.$url;
     }
     
     public function getTitle($url){

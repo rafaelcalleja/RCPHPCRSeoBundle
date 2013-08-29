@@ -6,8 +6,8 @@
         >
     <attribute key="class" value="background_banner"/>
     <children>
-        <property property="sioc:title" identifier="title" tag-name="h1"/>
-        <property property="sioc:keywords" identifier="keywords" tag-name="h2"/>
-        <property property="sioc:description" identifier="description" tag-name="div" />
+        <property property="sioc:title" identifier="title" tag-name="textarea"/>
+        <property property="sioc:keywords" identifier="keywords" tag-name="textarea"/>
+        <property property="sioc:description" identifier="description" tag-name="textarea" />
     </children>
 </type>
